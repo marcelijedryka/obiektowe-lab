@@ -1,12 +1,11 @@
 package agh.ics.oop;
 import static agh.ics.oop.Direction.ChoosePath;
 import static java.lang.System.out;
-import static agh.ics.oop.Vector2d.*;
-import static agh.ics.oop.OptionsParser.*;
+
 public class World {
     static void run(ChoosePath[] array) {
-        for (int i = 0; i < array.length; i++) {
-            String output = switch (array[i]) {
+        for (ChoosePath choosePath : array) {
+            String output = switch (choosePath) {
                 case FORWARD -> "Zwierzak idzie do przodu";
                 case BACKWARD -> "Zwierzak idzie do tyłu";
                 case LEFT -> "Zwierzak skęca w lewo";
@@ -33,18 +32,18 @@ public class World {
 
         out.println("system wystartował");
 
-        Animal animal = new Animal();
-        out.println(animal);
-        /*animal.move(MoveDirection.RIGHT);
-        animal.move(MoveDirection.FORWARD);
-        animal.move(MoveDirection.FORWARD);
-        animal.move(MoveDirection.FORWARD);
-        out.println(animal);*/
-        MoveDirection[] moves = parse(args);
-        for (int i=0 ; i< moves.length ; i++){
-            animal.move(moves[i]);
-            out.println(animal);
-        }
+        /* Aby zaimplementować mechanizm, który wyklucza pojawienie się dwóch zwierząt w tym samym miejscu
+        należy skorzystać z metody isAt. W metodzie move możemy dodać warunek, który zignoruje kolejny ruch
+        zwierzęcia, jeśli ten spowoduje wejście na zajmowaną już pozyję.
+         */
+
+//        String[] ruchy2 = new String[] {"f" ,"b", "b", "l", "f", "f", "r", "r", "f", "f", "f", "f", "f", "f", "f", "f"};
+        MoveDirection[] directions = new OptionsParser().parse(args);
+        IWorldMap map = new RectangularMap(10, 5);
+        out.println(map);
+        Vector2d[] positions = { new Vector2d(2,2), new Vector2d(3,4)};
+        IEngine engine = new SimulationEngine(directions, map, positions);
+        engine.run();
 
         //run(path);
         out.println("system zakończył działanie");
