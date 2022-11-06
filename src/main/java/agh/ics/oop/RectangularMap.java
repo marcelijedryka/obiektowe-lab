@@ -1,6 +1,6 @@
 package agh.ics.oop;
 
-public class RectangularMap implements IWorldMap {
+public class RectangularMap extends AbstractWorldMap {
 
     private final Object[][] map;
     private final Vector2d edge_1;
@@ -12,8 +12,6 @@ public class RectangularMap implements IWorldMap {
         edge_2 = new Vector2d(0, 0);
     }
 
-
-    @Override
     public boolean canMoveTo(Vector2d position) {
         if (position.x >= map[1].length || position.y >= map.length || position.x < 0 || position.y < 0){
             return false;
@@ -24,7 +22,6 @@ public class RectangularMap implements IWorldMap {
         return position.precedes(edge_1) && position.follows(edge_2);
     }
 
-    @Override
     public boolean place(Animal animal) {
         if (isOccupied(animal.getCurrent_position())) {
             return false;
@@ -33,7 +30,6 @@ public class RectangularMap implements IWorldMap {
         return true;
     }
 
-    @Override
     public boolean isOccupied(Vector2d position) {
         if (map[position.y][position.x] != null) {
             return true;
@@ -42,7 +38,6 @@ public class RectangularMap implements IWorldMap {
 
     }
 
-    @Override
     public Object objectAt(Vector2d position) {
         if (!isOccupied(position)) {
             return null;
@@ -50,13 +45,16 @@ public class RectangularMap implements IWorldMap {
         return map[position.y][position.x];
     }
 
-    @Override
-    public String toString() {
-        MapVisualizer draw = new MapVisualizer(this);
-        return draw.draw(edge_2,edge_1);
+    public Vector2d searchUpRight() {
+        return edge_1;
     }
-    @Override
-    public void removeAnimal(Vector2d position){
+
+    public Vector2d searchLowLeft() {
+        return edge_2;
+    }
+
+    public void repositionAnimal(Vector2d position , Vector2d changed , Animal animal){
         map[position.y][position.x] = null;
+        map[changed.y][changed.x] = animal;
     }
 }

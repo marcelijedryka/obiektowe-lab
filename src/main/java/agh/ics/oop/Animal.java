@@ -44,9 +44,8 @@ public class Animal {
             case BACKWARD -> changed_position = this.current_position.substract(this.current_orientation.toUnitVector());
         }
         if (map.canMoveTo(changed_position)) {
-            map.removeAnimal(current_position);
+            map.repositionAnimal(current_position ,changed_position , this);
             this.current_position = changed_position;
-            map.place(this);
         }
     }
 }

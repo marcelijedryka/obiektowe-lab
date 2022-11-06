@@ -32,20 +32,31 @@ public class World {
 
         out.println("system wystartował");
 
-        /* Aby zaimplementować mechanizm, który wyklucza pojawienie się dwóch zwierząt w tym samym miejscu
-        należy skorzystać z metody isAt. W metodzie move możemy dodać warunek, który zignoruje kolejny ruch
-        zwierzęcia, jeśli ten spowoduje wejście na zajmowaną już pozyję.
+        /*
+        Inny sposób implementacji mapy w klasach RectangularMap oraz GrassField spowodował , że
+        metody znacząco się od siebie różnią, a zatem w klasie Abstract World Map zaimplementowana jest tylko metoda toString()
          */
 
-//        String[] ruchy2 = new String[] {"f" ,"b", "b", "l", "f", "f", "r", "r", "f", "f", "f", "f", "f", "f", "f", "f"};
+        /* 10. Dodanie interfejsu IMapElement mogłoby  spowodować uproszczenie implementacji klasy GrassField,
+        ponieważ dzięki metodom zawartym w tym interfejsie moglibyśmy rozważać osobno występowanie poszczególnych
+        obiektów na danym polu. Kod byłby bardziej klarowny.
+        */
+
+        /*11. O ile różnica w implementacji mapy dla klas RectangularMap oraz GrassField spowodowała , że
+        prawie wszystkie metody różnią się od siebie, to w przypadku AbstractWorldMapElement implementacja takiej klasy
+        miałaby sens (rozważanie występowania poszczególnych obiektów na danym polu przeprowadzane jest w taki sam sposób)
+         */
+
+
+        //String[] ruchy = new String[] {"f", "b", "r", "l", "f", "f", "r", "r", "f", "f", "f", "f", "f", "f", "f", "f"};
         MoveDirection[] directions = new OptionsParser().parse(args);
-        IWorldMap map = new RectangularMap(10, 5);
-        out.println(map);
+        IWorldMap map = new GrassField(10);
         Vector2d[] positions = { new Vector2d(2,2), new Vector2d(3,4)};
         IEngine engine = new SimulationEngine(directions, map, positions);
         engine.run();
 
-        //run(path);
+
+
         out.println("system zakończył działanie");
     }
 }
