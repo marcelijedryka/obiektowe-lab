@@ -1,13 +1,19 @@
 package agh.ics.oop;
+import java.util.Objects;
 
 public class Vector2d {
     final public int x;
     final public int y;
 
+    public int hashCode() {
+        return Objects.hash(this.x, this.y);
+    }
+
     public Vector2d(int x, int y) {
         this.x = x;
         this.y = y;
     }
+
 
     public String toString() {
         String a = String.format("%d", this.x);

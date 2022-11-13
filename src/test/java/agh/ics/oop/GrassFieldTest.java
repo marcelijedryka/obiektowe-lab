@@ -14,11 +14,6 @@ public class GrassFieldTest {
         Vector2d[] positions = { new Vector2d(2,2), new Vector2d(3,4)};
         SimulationEngine engine = new SimulationEngine(directions, map, positions);
         engine.run();
-        //test sprawdzający czy na mapie znajduje się poprawna ilość trawy
-        assertEquals(10 , map.getGrassPos().size());
-
-        //test sprawdzający czy na mapie znajduje sie poprawna ilość zwierząt
-        assertEquals(2,map.getAnimalPos().size());
 
         /*test sprawdzający poprawność końcowych pozycji zwierząt na mapie, a co za tym idzie
         poprawność metod zaimplementowanych w klasie GrassField dziedziczącej z klasy

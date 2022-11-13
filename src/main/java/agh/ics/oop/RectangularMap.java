@@ -53,8 +53,9 @@ public class RectangularMap extends AbstractWorldMap {
         return edge_2;
     }
 
-    public void repositionAnimal(Vector2d position , Vector2d changed , Animal animal){
-        map[position.y][position.x] = null;
-        map[changed.y][changed.x] = animal;
+    public void positionChanged(Vector2d oldPosition, Vector2d newPosition){
+        Animal animal =  (Animal) this.objectAt(oldPosition);
+        map[oldPosition.y][oldPosition.x] = null;
+        map[newPosition.y][newPosition.x] = animal;
     }
 }
