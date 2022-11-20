@@ -2,12 +2,12 @@ package agh.ics.oop;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class AnimalTest {
 
     @Test
-    public void check_animal_test(){
+    public void checkAnimalTest(){
         IWorldMap map = new RectangularMap(10, 5);
         Vector2d[] positions = { new Vector2d(2,2), new Vector2d(3,4)};
         String[] moves = new String[] {"f" ,"b", "r", "l", "f", "f", "r", "r", "f", "f", "f", "f", "f", "f", "f", "f"};
@@ -16,6 +16,39 @@ public class AnimalTest {
         engine.run();
         assertEquals(new Vector2d(3,4) , engine.getAnimals().get(1).getCurrent_position());
         assertEquals(new Vector2d(2,0) , engine.getAnimals().get(0).getCurrent_position());
+    }
+
+    @Test()
+    public void OptionParserTest(){
+        boolean flag = false;
+        try{
+
+            String[] moves = new String[] {"c", "b", "r", "l", "f", "f", "r", "r", "f", "f", "f", "f", "f", "f", "f", "f"};
+            IWorldMap map = new GrassField(10);
+            MoveDirection[] directions = new OptionsParser().parse(moves);
+            Vector2d[] positions = {new Vector2d(2, 2), new Vector2d(3, 4)};
+            IEngine engine = new SimulationEngine(directions, map, positions);
+            engine.run();
+        }catch (IllegalArgumentException exception){
+            flag = true;
+        }
+       assertTrue(flag);
+    }
+
+    @Test
+    public void placeTest(){
+        boolean flag = false;
+        String[] moves = new String[] {"f", "b", "r", "l", "f", "f", "r", "r", "f", "f", "f", "f", "f", "f", "f", "f"};
+        IWorldMap map = new GrassField(10);
+        MoveDirection[] directions = new OptionsParser().parse(moves);
+        Vector2d[] positions = {new Vector2d(2, 2), new Vector2d(3, 4) , new Vector2d(3, 4)};
+        try{
+            IEngine engine = new SimulationEngine(directions, map, positions);
+            engine.run();
+        }catch (IllegalArgumentException exception){
+            flag = true;
+        }
+        assertTrue(flag);
     }
 
 //    @Test

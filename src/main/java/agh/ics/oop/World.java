@@ -1,4 +1,7 @@
 package agh.ics.oop;
+import agh.ics.oop.gui.App;
+import javafx.application.Application;
+
 import static agh.ics.oop.Direction.ChoosePath;
 import static java.lang.System.out;
 
@@ -30,8 +33,6 @@ public class World {
 
     public static void main(String[] args) {
 
-        out.println("system wystartował");
-
         /*
         Inny sposób implementacji mapy w klasach RectangularMap oraz GrassField spowodował , że
         metody znacząco się od siebie różnią, a zatem w klasie Abstract World Map zaimplementowana jest tylko metoda toString()
@@ -48,18 +49,22 @@ public class World {
          */
 
 
-//        String[] ruchy = new String[] {"f", "b", "r", "l", "f", "f", "r", "r", "f", "f", "f", "f", "f", "f", "f", "f"};
+//        String[] ruchy = new String[] {"c", "b", "r", "l", "f", "f", "r", "r", "f", "f", "f", "f", "f", "f", "f", "f"};
 //        String[] ruchy2 = new String[] {"l", "r", "f", "f", "f", "f", "f", "r", "f", "f", "f", "f", "f", "f", "f", "f","f", "f", "f"};
-        MoveDirection[] directions = new OptionsParser().parse(args);
-        IWorldMap map = new GrassField(10);
-        Vector2d[] positions = { new Vector2d(2,2), new Vector2d(3,4)};
-        IEngine engine = new SimulationEngine(directions, map, positions);
-        out.println(map);
-        engine.run();
+        try{
+            Application.launch(App.class, args);
+//            out.println("system wystartował");
+//            MoveDirection[] directions = new OptionsParser().parse(ruchy);
+//            IWorldMap map = new GrassField(10);
+//            Vector2d[] positions = { new Vector2d(2,2), new Vector2d(3,4)};
+//            IEngine engine = new SimulationEngine(directions, map, positions);
+//            out.println(map);
+//            engine.run();
+//            out.println("system zakończył działanie");
 
+        }catch (IllegalArgumentException wrongArgument){
+            out.println(wrongArgument);
+        }
 
-
-
-        out.println("system zakończył działanie");
     }
 }

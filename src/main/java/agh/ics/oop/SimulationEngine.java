@@ -16,6 +16,8 @@ public class SimulationEngine implements IEngine {
            if (map.place(possible_animal)){
                animals.add(possible_animal);
 
+           }else {
+               throw new IllegalArgumentException("Animal can not be placed on field " + possible_animal.getCurrent_position());
            }
        }
 
@@ -33,7 +35,7 @@ public class SimulationEngine implements IEngine {
                 j=0;
             }
             animals.get(j).move(moves[i]);
-            System.out.println(map);
+//            System.out.println(map);
             j++;
         }
     }

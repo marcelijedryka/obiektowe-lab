@@ -19,6 +19,10 @@ public class GrassField extends AbstractWorldMap {
 
     }
 
+    public Map<Vector2d, Object> getMap() {
+        return map;
+    }
+
     public void generateNewGrass(Grass grass){
         map.remove(grass.getPosition());
         Random roll =new Random();

@@ -1,5 +1,5 @@
 package agh.ics.oop;
-abstract class AbstractWorldMap implements IWorldMap , IPositionChangeObserver {
+public abstract class AbstractWorldMap implements IWorldMap , IPositionChangeObserver {
 
     public abstract boolean canMoveTo(Vector2d position) ;
 
