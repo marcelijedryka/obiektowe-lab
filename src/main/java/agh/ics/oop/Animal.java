@@ -40,6 +40,9 @@ public class Animal {
         return current_position;
     }
 
+    public MapDirection getCurrent_orientation() {
+        return current_orientation;
+    }
 
     public String toString() {
         return switch (current_orientation){
@@ -63,8 +66,9 @@ public class Animal {
             case BACKWARD -> changed_position = this.current_position.substract(this.current_orientation.toUnitVector());
         }
         if (map.canMoveTo(changed_position)) {
-            positionChange(current_position,changed_position);
+            Vector2d old_position = current_position;
             this.current_position = changed_position;
+            positionChange(old_position,changed_position);
         }
     }
 }
