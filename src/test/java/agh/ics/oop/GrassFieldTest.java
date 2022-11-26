@@ -12,7 +12,7 @@ public class GrassFieldTest {
         MoveDirection[] directions = new OptionsParser().parse(ruchy);
         GrassField map = new GrassField(10);
         Vector2d[] positions = { new Vector2d(2,2), new Vector2d(3,4)};
-        SimulationEngine engine = new SimulationEngine(directions, map, positions);
+        SimulationEngine engine = new SimulationEngine(directions, map, positions , 1);
         engine.run();
 
         /*test sprawdzający poprawność końcowych pozycji zwierząt na mapie, a co za tym idzie

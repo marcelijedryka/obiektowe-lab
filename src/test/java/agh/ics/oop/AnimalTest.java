@@ -12,7 +12,7 @@ public class AnimalTest {
         Vector2d[] positions = { new Vector2d(2,2), new Vector2d(3,4)};
         String[] moves = new String[] {"f" ,"b", "r", "l", "f", "f", "r", "r", "f", "f", "f", "f", "f", "f", "f", "f"};
         MoveDirection[] directions = new OptionsParser().parse(moves);
-        SimulationEngine engine = new SimulationEngine(directions, map, positions);
+        SimulationEngine engine = new SimulationEngine(directions, map, positions , 0);
         engine.run();
         assertEquals(new Vector2d(3,4) , engine.getAnimals().get(1).getCurrent_position());
         assertEquals(new Vector2d(2,0) , engine.getAnimals().get(0).getCurrent_position());
@@ -27,7 +27,7 @@ public class AnimalTest {
             IWorldMap map = new GrassField(10);
             MoveDirection[] directions = new OptionsParser().parse(moves);
             Vector2d[] positions = {new Vector2d(2, 2), new Vector2d(3, 4)};
-            IEngine engine = new SimulationEngine(directions, map, positions);
+            IEngine engine = new SimulationEngine(directions, map, positions ,1);
             engine.run();
         }catch (IllegalArgumentException exception){
             flag = true;
@@ -43,7 +43,7 @@ public class AnimalTest {
         MoveDirection[] directions = new OptionsParser().parse(moves);
         Vector2d[] positions = {new Vector2d(2, 2), new Vector2d(3, 4) , new Vector2d(3, 4)};
         try{
-            IEngine engine = new SimulationEngine(directions, map, positions);
+            IEngine engine = new SimulationEngine(directions, map, positions ,0 );
             engine.run();
         }catch (IllegalArgumentException exception){
             flag = true;

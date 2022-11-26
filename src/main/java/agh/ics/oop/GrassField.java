@@ -7,11 +7,12 @@ public class GrassField extends AbstractWorldMap {
     private final Map<Vector2d , Object> map = new HashMap<>();
     private final int amount;
 
-    private MapBoundary boundary;
+    private IAppObserver observer;
+
+    private final MapBoundary boundary;
     public GrassField(int n) {
         amount =n;
         Random roll = new Random();
-
         boundary = new MapBoundary();
 
         while (map.size() < amount){
@@ -80,30 +81,25 @@ public class GrassField extends AbstractWorldMap {
         Animal animal = (Animal) map.get(oldPosition);
         map.remove(oldPosition);
         map.put(newPosition ,animal);
+        observer.positionChanged();
     }
 
     public Vector2d searchLowLeft(){
-//        int min_x = map.keySet().stream()
-//                .mapToInt(elem -> elem.x)
-//                .min().orElseThrow(NoSuchElementException::new);
-//        int min_y = map.keySet().stream()
-//                .mapToInt(elem -> elem.y)
-//                .min().orElseThrow(NoSuchElementException::new);
-//
-//        return new Vector2d(min_x , min_y);
+
         return boundary.lowerLeft();
     }
 
     public Vector2d searchUpRight(){
-//
-//    int max_x = map.keySet().stream()
-//            .mapToInt(elem -> elem.x)
-//            .max().orElseThrow(NoSuchElementException::new);
-//    int max_y = map.keySet().stream()
-//            .mapToInt(elem -> elem.y)
-//            .max().orElseThrow(NoSuchElementException::new);
-//    return new Vector2d(max_x , max_y);
+
         return boundary.upperRight();
 }
+
+    public void updateObserver(){
+        observer.positionChanged();
+    }
+    public void addObserver(IAppObserver application){
+        observer = application;
+    }
+
 
 }

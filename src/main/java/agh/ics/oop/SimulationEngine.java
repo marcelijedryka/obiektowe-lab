@@ -1,15 +1,16 @@
 package agh.ics.oop;
 import java.util.ArrayList;
+public class SimulationEngine implements IEngine , Runnable {
 
-public class SimulationEngine implements IEngine {
-
-    private final MoveDirection[] moves;
-    private final IWorldMap map;
+    private MoveDirection[] moves;
     private final ArrayList<Animal> animals;
 
-    public SimulationEngine(MoveDirection[] moves , IWorldMap map , Vector2d[] starting_positions) {
-       this.map=map;
-       this.moves=moves;
+    private final int moveDelay;
+
+
+    public SimulationEngine(MoveDirection[] moves , IWorldMap map , Vector2d[] starting_positions , int moveDelay) {
+        this.moves=moves;
+       this.moveDelay = moveDelay;
        animals = new ArrayList<Animal>();
        for(Vector2d pos : starting_positions){
            Animal possible_animal = new Animal(map,pos);
@@ -23,6 +24,9 @@ public class SimulationEngine implements IEngine {
 
     }
 
+    public void setDirection(MoveDirection[] moves){
+        this.moves = moves;
+    }
     public ArrayList<Animal> getAnimals() {
         return animals;
     }
@@ -30,13 +34,20 @@ public class SimulationEngine implements IEngine {
     @Override
     public void run() {
         int j= 0;
-        for(int i=0 ; i < moves.length ; i++){
-            if(j == animals.size()){
-                j=0;
+        for (MoveDirection move : moves) {
+            try {
+                Thread.sleep(moveDelay);
+            } catch (InterruptedException ex) {
+                System.out.println(ex);
             }
-            animals.get(j).move(moves[i]);
-//            System.out.println(map);
+            if (j == animals.size()) {
+                j = 0;
+            }
+            animals.get(j).move(move);
             j++;
+
         }
     }
+
+
 }

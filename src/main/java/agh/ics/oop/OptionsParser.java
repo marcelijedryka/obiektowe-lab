@@ -4,15 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OptionsParser {
-    public static MoveDirection[] parse(String[] args) {
+    public MoveDirection[] parse(String[] args) {
         List<MoveDirection> moves = new ArrayList<MoveDirection>();
-        for (int i = 0; i < args.length; i++) {
-            switch (args[i]) {
-                case "f" , "forward" -> moves.add(MoveDirection.FORWARD);
-                case "b" , "backward" -> moves.add(MoveDirection.BACKWARD);
-                case "r" , "right" -> moves.add(MoveDirection.RIGHT);
-                case "l" , "left" -> moves.add(MoveDirection.LEFT);
-                default -> throw new IllegalArgumentException(args[i] + " is not legal move specification");
+        for (String arg : args) {
+            switch (arg) {
+                case "f", "forward" -> moves.add(MoveDirection.FORWARD);
+                case "b", "backward" -> moves.add(MoveDirection.BACKWARD);
+                case "r", "right" -> moves.add(MoveDirection.RIGHT);
+                case "l", "left" -> moves.add(MoveDirection.LEFT);
+                default -> throw new IllegalArgumentException(arg + " is not legal move specification");
 
             }
         }
